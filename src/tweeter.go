@@ -27,4 +27,16 @@ func main() {
 			return
 		},
 	})
+
+	shell.AddCmd(&ishell.Cmd{
+		Name: "showTweet",
+		Help: "show a tweet",
+		Func: func(c *ishell.Context) {
+			defer c.ShowPrompt(true)
+			tweet := service.GetTweet()
+			c.Println(tweet)
+			return
+		},
+	})
+	shell.Run()
 }
