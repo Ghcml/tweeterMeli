@@ -15,3 +15,11 @@ func TestPublishedTweetIsSaved(t *testing.T) {
 		t.Error("Expected tweet is", tweet)
 	}
 }
+func TestCleanTestIsClean(t *testing.T) {
+	tweet := "This is my first tweet" //Creo un Tweet
+	service.PublishTweet(tweet)       //Lo publico
+	service.CleanTweet()              //Despues limpio el ulitmo Tweet
+	if service.GetTweet() == tweet {
+		t.Error("No funciona el tweet")
+	}
+}
