@@ -87,3 +87,30 @@ func TestTweetWithoutTextIsNotPublished(t *testing.T) {
 		t.Error("Expected error is text is requiered")
 	}
 }
+
+func TestTweetWhichExceeding140CharactersIsNotPublished(t *testing.T) {
+
+	//Initialization
+	var tweet *domain.Tweet
+
+	user := "grupoesfera"
+
+	text := `Contadordecaracteres.com es un contador automático de caracteres y palabras en un texto. 
+			Solo colocque el cursor dentro de la caja de textos.`
+	tweet = domain.NewTweet(user, text)
+
+	//Operation
+	var err error
+	err = service.PublishTweet(tweet)
+
+	//Validation
+
+	if err == nil {
+		t.Error("Expected error")
+		return
+	}
+
+	if err.Error() != "text exceeds 140 characters" {
+		t.Error("Expected error is text excedds 140 characters")
+	}
+}
